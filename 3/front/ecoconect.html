@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plateforme d'événements éco-responsables locaux" />
+  <title>EcoConnect Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styleor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo">
+      <i class="fas fa-leaf"></i>
+      <span class="logo-text">EcoConnect</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#evenements">Événements</a>
+      <a href="#carte">Carte</a>
+      <a href="#organiser">Organiser</a>
+      <a href="#a-propos">À propos</a>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-outline" id="login-btn">Connexion</button>
+      <button class="btn btn-primary" id="register-btn">Inscription</button>
+    </div>
+    <button class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- MODALE -->
+<div class="modal hidden" id="auth-modal">
+  <div class="modal-content">
+    <button class="close-modal">&times;</button>
+    <h2 id="modal-title">Connexion</h2>
+    <form id="auth-form">
+      <div id="name-fields" class="hidden">
+        <div class="form-group">
+          <label for="first_name">Prénom</label>
+          <input type="text" id="first_name" />
+        </div>
+        <div class="form-group">
+          <label for="last_name">Nom</label>
+          <input type="text" id="last_name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+  </div>
+</div>
+
+<!-- RESTE DU SITE -->
+ <!-- Bannière principale -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">Connectez-vous à l'écologie locale</h1>
+        <p class="hero-subtitle">Participez à des événements écoresponsables près de chez vous</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section événements -->
+  <section class="section" id="evenements">
+    <div class="container">
+      <h2 class="section-title">Événements</h2>
+      <div class="filtres">
+        <input type="text" id="search" placeholder="Rechercher...">
+        <select id="category">
+          <option value="">Toutes les catégories</option>
+          <option value="nettoyage">Nettoyage</option>
+          <option value="plantation">Plantation</option>
+          <option value="atelier">Atelier</option>
+        </select>
+      </div>
+      <div id="event-list"></div>
+    </div>
+  </section>
+
+  <!-- Section carte -->
+  <section id="carte" class="section">
+    <div class="container">
+      <h2 class="section-title">Carte des événements</h2>
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- Appel à l'action -->
+  <section class="section cta" id="organiser">
+    <div class="container">
+      <h2 class="section-title">Envie d'organiser un événement ?</h2>
+      <p>Publiez votre initiative écologique et trouvez des participants engagés.</p>
+      <button class="btn btn-primary">Proposer un événement</button>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2 class="newsletter-title">Restez informé</h2>
+      <p class="newsletter-subtitle">Recevez les actualités écologiques dans votre boîte mail</p>
+      <form id="newsletter-form" class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="Votre email">
+        <button type="submit" class="newsletter-btn">S'abonner</button>
+      </form>
+    </div>
+  </section>
+  <!-- MODALE PROPOSER UN ÉVÉNEMENT -->
+<div class="modal hidden" id="event-modal">
+  <div class="modal-content">
+    <button class="close-event-modal">&times;</button>
+    <h2>Proposer un événement</h2>
+    <form id="event-form">
+      <div class="form-group">
+        <label for="event-title">Titre</label>
+        <input type="text" id="event-title" required />
+      </div>
+      <div class="form-group">
+        <label for="event-date">Date</label>
+        <input type="date" id="event-date" required />
+      </div>
+      <div class="form-group">
+        <label for="event-category">Catégorie</label>
+        <select id="event-category">
+          <option value="nettoyage">Nettoyage</option>
+          <option value="plantation">Plantation</option>
+          <option value="atelier">Atelier</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="event-location">Lieu</label>
+        <input type="text" id="event-location" />
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter l'événement</button> 
+    </form>
+  </div>
+</div>
+
+
+  <!-- Pied de page -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>EcoConnect</h3>
+          <p>Plateforme d’événements écoresponsables locaux.</p>
+          <div class="social-links">
+            <a href=""><i class="fab fa-facebook-f"></i></a>
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-instagram"></i></a>
+            <a href=""><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#evenements">Événements</a></li>
+            <li><a href="#carte">Carte</a></li>
+            <li><a href="#organiser">Organiser</a></li>
+            <li><a href="#a-propos">À propos</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Légal</h3>
+          <ul>
+            <li><a href="#">Mentions légales</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul>
+            <li><i class="fas fa-envelope"></i>EcoConnect@gmail.co</li>
+            <li><i class="fas fa-phone"></i> +212 70 65 92 29 2</li>
+            <li><i class="fas fa-map-marker-alt"></i> Fes , France</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; <span id="year"></span> EcoConnect Events. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+<!-- Hero, événements, carte, newsletter, footer (laisse comme dans ton fichier précédent) -->
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="S.js"></script>
+</body>
+</html>
